@@ -11,7 +11,7 @@
 <body>
     <h1 class="text-danger text-center">Work Of Tracker</h1>
 
-    <div>
+    <div class="container mt-4">
         <form method="post">
             <div class="mb-3">
                 <label for="ism" class="form-label">Ism</label>
@@ -59,8 +59,8 @@
    
 
 
-    <div>
-        <table class="table">
+    <div class="container mt-4">
+        <table class="table table-dark">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -75,7 +75,7 @@
                 <?php
                     foreach($records as $rec){
                         echo "<tr>
-                            <th scope='row'>{$rec['id']}</th>
+                            <th>{$rec['id']}</th>
                             <td>{$rec['ism']}</td>
                             <td>{$rec['kelgan_vaqt']}</td>
                             <td>{$rec['ketgan_vaqt']}</td>
