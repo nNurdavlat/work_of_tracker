@@ -35,9 +35,14 @@
 
     <?php
 
+    require 'DB.php';
+
+    $db = new DB();
+
+    $pdo = $db->pdo;
+
     const IshlashKerak = 8;
 
-    $pdo = new PDO('mysql:host=localhost;dbname=work_of_traker', 'root', '1234');
 
     if (isset($_POST['kelgan_vaqt']) and isset($_POST['ketgan_vaqt']) and isset($_POST['ism'])) {
         if (!empty($_POST['ism']) and !empty($_POST['kelgan_vaqt']) and !empty($_POST['ketgan_vaqt'])) {
@@ -50,7 +55,6 @@
             $diff = $kelgan_vaqt->diff($ketgan_vaqt);
             $hour = $diff->h;
             $minute = $diff->i;
-            // $second = $diff->s;
             $total = ((IshlashKerak * 3600) - (($hour * 3600) + ($minute * 60)));
 
             $quary = "INSERT INTO work_times(kelgan_vaqt, ketgan_vaqt, ism, required_of) VALUES (:kelgan, :ketgan, :ism, :qarzi)";
