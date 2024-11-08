@@ -9,5 +9,4 @@ class DB
         $this->pdo = new PDO('mysql:host=localhost;dbname=work_of_traker', 'root', '1234');
         return $this->pdo;
     }
-    
 }
