@@ -54,18 +54,22 @@ class WorkDay
         $stmt = $this->pdo->query($SelectQuery); //pdo tepadagi propertiy
         return $stmt->fetchAll();
     }
+
+
+    public function calculateDebtTimeForEachUser() {
+        $SelectQuery2 = "SELECT ism, SUM(required_of) as debt FROM work_times GROUP BY ism";
+        $stmt = $this->pdo->query($SelectQuery2); //pdo tepadagi propertiy
+        return $stmt->fetchAll();
+    }
+
+
+    public function markAsDone(int $id) {
+        $quary = "UPDATE work_times SET required_of = 0 WHERE id = :id";
+        $stmt = $this->pdo->prepare($quary);
+        $stmt->bindParam(':id', $id);
+        $stmt -> execute();
+        header("Location: class_work.php");
+    }
 }
 
 ?>
-
-
-<!-- public function required(DateTime $kelgan_vaqt, DateTime $ketgan_vaqt)
-    {
-        //Orasidagi vaqt hisoblash uchun diff methodi yordamga keladi
-        $diff = $kelgan_vaqt->diff($ketgan_vaqt);
-        $hour = $diff->h;
-        $minute = $diff->i;
-
-        $total = ((self::IshlashKerak * 3600) - (($hour * 3600) + ($minute * 60)));
-        return $total;
-    } -->

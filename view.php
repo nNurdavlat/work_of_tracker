@@ -95,6 +95,7 @@
                     <th>Kelgan vaqt</th>
                     <th>Ketgan vaqt</th>
                     <th>Qarizdorligi</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,6 +108,7 @@
                             <td>{$rec['kelgan_vaqt']}</td>
                             <td>{$rec['ketgan_vaqt']}</td>
                             <td>" . gmdate('H:i', $rec['required_of']) . "</td>
+                            <td><a href='class_work.php?done=" . $rec['id'] . "'>Done</a></td>
                         </tr>";
                 }
                 ?>

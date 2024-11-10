@@ -14,4 +14,10 @@ if (isset($_POST['kelgan_vaqt']) and isset($_POST['ketgan_vaqt']) and isset($_PO
 
 $records = $workDay->getWordDayList();
 
+$workDay->calculateDebtTimeForEachUser();
+
+if (isset($_GET['done']) and !empty($_GET['done'])) {
+    $workDay->markAsDone($_GET['done']);
+}
+
 require 'view.php';
