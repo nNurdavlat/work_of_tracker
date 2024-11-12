@@ -82,7 +82,13 @@
                 <input type="datetime-local" class="form-control" id="ketgan_vaqt" name="ketgan_vaqt" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+                <button form="export" type="submit" class="btn btn-success">Expert</button>
+        </form>
+
+        <form action="download.php" id="export" method="post">
+            <input type="text" name="export" value="true" hidden="">
         </form>
     </div>
 
@@ -101,14 +107,16 @@
             <tbody>
                 <?php
                 global $records;
+                $i = 0;
                 foreach ($records as $rec) {
+                    $i++;
                     echo "<tr>
-                            <th>{$rec['id']}</th>
+                            <th>{$i}</th>
                             <td>{$rec['ism']}</td>
                             <td>{$rec['kelgan_vaqt']}</td>
                             <td>{$rec['ketgan_vaqt']}</td>
                             <td>" . gmdate('H:i', $rec['required_of']) . "</td>
-                            <td><a href='class_work.php?done=" . $rec['id'] . "'>Done</a></td>
+                            <td><a href='work_of_tracker.php?done=" . $rec['id'] . "'>Done</a></td>
                         </tr>";
                 }
                 ?>

@@ -42,7 +42,7 @@ class WorkDay
         $stmt->bindValue(':ketgan', $ketgan_vaqt->format("Y-m-d H:i"));
         $stmt->bindParam(':qarzi', $total);
         $stmt->execute();
-        header("Location: class_work.php");
+        header("Location: work_of_tracker.php");
         exit();
     }
 
@@ -50,7 +50,7 @@ class WorkDay
 
     public function getWordDayList()
     {
-        $SelectQuery = "SELECT * FROM work_times";
+        $SelectQuery = "SELECT * FROM work_times ORDER BY kelgan_vaqt DESC";
         $stmt = $this->pdo->query($SelectQuery); //pdo tepadagi propertiy
         return $stmt->fetchAll();
     }
@@ -68,7 +68,7 @@ class WorkDay
         $stmt = $this->pdo->prepare($quary);
         $stmt->bindParam(':id', $id);
         $stmt -> execute();
-        header("Location: class_work.php");
+        header("Location: work_of_tracker.php");
     }
 }
 
