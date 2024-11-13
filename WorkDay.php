@@ -52,24 +52,47 @@ class WorkDay
     {
         $SelectQuery = "SELECT * FROM work_times ORDER BY kelgan_vaqt DESC";
         $stmt = $this->pdo->query($SelectQuery); //pdo tepadagi propertiy
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
-    public function calculateDebtTimeForEachUser() {
+    public function calculateDebtTimeForEachUser()
+    {
         $SelectQuery2 = "SELECT ism, SUM(required_of) as debt FROM work_times GROUP BY ism";
         $stmt = $this->pdo->query($SelectQuery2); //pdo tepadagi propertiy
         return $stmt->fetchAll();
     }
 
 
-    public function markAsDone(int $id) {
+    public function markAsDone(int $id)
+    {
         $quary = "UPDATE work_times SET required_of = 0 WHERE id = :id";
         $stmt = $this->pdo->prepare($quary);
         $stmt->bindParam(':id', $id);
-        $stmt -> execute();
+        $stmt->execute();
         header("Location: work_of_tracker.php");
     }
-}
 
-?>
+
+    public function getWorkDayListWithPagination(int $offset)
+    {
+        $offset = $offset ? ($offset * 10)-10 : 0;
+        $query = "SELECT * FROM work_times ORDER BY kelgan_vaqt DESC LIMIT 10 OFFSET " . $offset*10;
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalRecords()
+    {
+        $query = "SELECT COUNT(id) as pageCount FROM work_times;";
+        $stmt = $this->pdo->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function  calculatePageCount()
+    {
+        $total = $this->getTotalRecords()['pageCount'];
+        return ceil($total / 10);
+    }
+}

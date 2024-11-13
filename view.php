@@ -82,9 +82,9 @@
                 <input type="datetime-local" class="form-control" id="ketgan_vaqt" name="ketgan_vaqt" required>
             </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
 
-                <button form="export" type="submit" class="btn btn-success">Expert</button>
+            <button form="export" type="submit" class="btn btn-success">Expert</button>
         </form>
 
         <form action="download.php" id="export" method="post">
@@ -107,7 +107,7 @@
             <tbody>
                 <?php
                 global $records;
-                $i = 0;
+                $i = isset($_GET['page']) ? (int)$_GET['page'] : 0;
                 foreach ($records as $rec) {
                     $i++;
                     echo "<tr>
@@ -122,6 +122,27 @@
                 ?>
             </tbody>
         </table>
+        <!-- Pasidegi 1 2 3 lar  -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php
+                    global $workDay, $currentPage;
+                    $disabled = $currentPage == 1 ? "disabled" : "";
+                ?>
+
+                <li class="page-item <?=$disabled?>"><a class="page-link" href="#">Previous</a></li>
+                <?php
+                    $pageCount = $workDay->calculatePageCount();
+                    for ($page=1; $page <= $pageCount; $page++) { 
+                        $active = $currentPage == $page ? 'active' : '';
+                        echo "<li class='page-item $active''><a class='page-link'' href='work_of_tracker.php?page=" . $page . "''>" . $page . "</a></li>";
+                    }
+
+
+                ?>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
